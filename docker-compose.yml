@@ -32,7 +32,7 @@ services:
       - db
     environment:
       - PYTHONUNBUFFERED=0
-      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
+      - POSTGRES_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
     volumes:
       - base-data:/data
       - ./backend/:/code

@@ -1,0 +1,17 @@
+name: lint and test
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  linter:
+    runs-on: ubuntu-18.04
+    name: Check python linting
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Start linter
+        run: |
+          docker run --rm -w="/code/backend" -v $(pwd):/code alpine/flake8:3.5.0 .
