@@ -1,0 +1,9 @@
+# api
+fastapi==0.65.1
+uvicorn==0.13.4
+
+# database
+databases[postgresql]==0.4.3
+psycopg2-binary==2.8.6
+SQLAlchemy==1.4.15
+asyncpg==0.23.0
