@@ -2,18 +2,22 @@ version: '3'
 
 volumes:
   base-data:
-  db-data:
+  mongodb-data:
+  proxy-data:
 
 services:
-  db:
+  mongodb:
+    restart: always
     env_file:
       - .env
-    image: postgres:12
+    build:
+      context: ./mongodb
+      dockerfile: ./Dockerfile
     expose:
-      - "5432"
+      - "27017"
     volumes:
-      - db-data:/var/lib/postgresql/data
-    
+      - mongodb-data:/data/db
+
   backend:
     restart: always
     env_file:
@@ -23,23 +27,26 @@ services:
       dockerfile: ./Dockerfile
       args:
         env: ${ENV}
-        requirements_file: '${ENV}.txt'
     ports:
       - '8000:8000'
     command: |
-        bash -c "while !</dev/tcp/db/5432; do sleep 1; done; uvicorn src.app:app --reload --workers 1 --host 0.0.0.0 --port 8000"
+        bash -c "while !</dev/tcp/mongodb/27017; do sleep 1; done; uvicorn src.main:app --reload --workers 1 --host 0.0.0.0 --port 8000 --log-config=logconfig.yml"
     depends_on:
-      - db
+      - mongodb
     environment:
       - PYTHONUNBUFFERED=0
-      - POSTGRES_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
     volumes:
       - base-data:/data
       - ./backend/:/code
 
   proxy:
-    image: tivix/docker-nginx:v6
+    restart: always
     ports:
       - '0.0.0.0:80:80'
     env_file:
       - .env
+    build:
+      context: ./proxy
+      dockerfile: ./Dockerfile
+    volumes:
+        - proxy-data:/etc/letsencrypt
