@@ -4,7 +4,7 @@ LABEL maintainer Nick <nick@night.com>
 
 ARG env
 ENV REQUIREMENTS_FILE ${env:-dev}.txt
-ENV PYTHONPATH "${PYTHONPATH}:/code/backend/src"
+ENV PYTHONPATH "${PYTHONPATH}:/code"
 
 RUN apk add --no-cache \
     bash \
