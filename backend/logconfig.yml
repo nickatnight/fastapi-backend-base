@@ -29,8 +29,3 @@ loggers:
     handlers:
       - access
     propagate: no
-  src.utils.runbot:
-    level: DEBUG
-    propogate: no
-    handlers:
-      - default

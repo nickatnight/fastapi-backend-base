@@ -13,7 +13,7 @@ if [ ${#} -eq 0 ]; then
     echo "Installing Certbot"
     apk add --no-cache certbot \
     && certbot certonly --standalone --agree-tos -m "${CERTBOT_EMAIL}" -n -d ${DOMAIN_LIST} \
-    && echo "certbot renew --nginx" >/etc/periodic/daily/certbot-renew \
+    && echo -e "#!/bin/sh\n\ncertbot renew --nginx" >/etc/periodic/daily/certbot-renew \
     && chmod +x /etc/periodic/daily/certbot-renew
 
     # run crond in the background with a log level of 8
