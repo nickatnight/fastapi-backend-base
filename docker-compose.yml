@@ -4,6 +4,7 @@ volumes:
   base-data:
   mongodb-data:
   proxy-data:
+  redis-data:
 
 services:
   mongodb:
@@ -28,9 +29,11 @@ services:
       args:
         env: ${ENV}
     ports:
-      - '8000:8000'
+      - "8000:8000"
     command: |
-        bash -c "while !</dev/tcp/mongodb/27017; do sleep 1; done; uvicorn src.main:app --reload --workers 1 --host 0.0.0.0 --port 8000 --log-config=logconfig.yml"
+        bash -c "
+        while !</dev/tcp/mongodb/27017; do sleep 1; done;
+        uvicorn src.main:app --reload --workers 1 --host 0.0.0.0 --port 8000 --log-config=logconfig.yml"
     depends_on:
       - mongodb
     environment:
@@ -42,7 +45,7 @@ services:
   proxy:
     restart: always
     ports:
-      - '0.0.0.0:80:80'
+      - "0.0.0.0:80:80"
     env_file:
       - .env
     build:
@@ -50,3 +53,11 @@ services:
       dockerfile: ./Dockerfile
     volumes:
         - proxy-data:/etc/letsencrypt
+
+  redis:
+    restart: always
+    image: redis:latest
+    ports:
+      - "6479:6379"
+    volumes:
+      - redis-data:/data

@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - develop
 
 jobs:
   linter:
@@ -15,3 +16,19 @@ jobs:
       - name: Start linter
         run: |
           docker run --rm -w="/code/backend" -v $(pwd):/code alpine/flake8:3.9.2 .
+
+  black:
+    runs-on: ubuntu-20.04
+    name: Black code formatting
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.9'
+      - name: run black
+        working-directory: ./backend
+        run: |
+          pip install black==21.5b1
+          black --check .
