@@ -19,6 +19,8 @@ class Settings(BaseSettings):
     MONGODB_PASS: str = Field(..., env="MONGODB_PASS")
     MONGODB_DATABASE: str = Field(..., env="MONGODB_DATABASE")
 
+    REDIS_HOST: str = Field(..., env="REDIS_HOST")
+
     VERSION: str = Field(..., env="VERSION")
 
 

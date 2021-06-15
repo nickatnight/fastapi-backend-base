@@ -7,8 +7,7 @@ RUN apk add --no-cache\
     py3-pip \
     curl &&\
     pip3 install --no-cache-dir \
-    j2cli==0.3.10 \
-    boto3==1.12.26 &&\
+    j2cli==0.3.10 &&\
     curl -o /usr/local/bin/waitforit -sSL https://github.com/maxcnunes/waitforit/releases/download/v2.4.1/waitforit-linux_amd64 && \
     chmod +x /usr/local/bin/waitforit &&\
     rm -rf /etc/nginx/nginx.conf /etc/nginx/conf.d/*

@@ -9,3 +9,4 @@ motor==2.4.0
 
 # utils
 PyYAML==5.4.1
+fastapi-limiter==0.1.4
