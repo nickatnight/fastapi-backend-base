@@ -17,7 +17,7 @@ RUN apk add --no-cache\
     certbot-nginx==1.20.0 &&\
     curl -o /usr/local/bin/waitforit -sSL https://github.com/maxcnunes/waitforit/releases/download/v2.4.1/waitforit-linux_amd64 && \
     chmod +x /usr/local/bin/waitforit &&\
-    rm -rf /etc/nginx/nginx.conf /etc/nginx/conf.d/*
+    rm -rf /etc/nginx/nginx.conf /etc/nginx/http.d/*
 
 COPY ./ /code/
 COPY docker-entrypoint.sh /usr/local/bin/

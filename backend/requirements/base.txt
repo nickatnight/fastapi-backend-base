@@ -1,0 +1,12 @@
+# api
+fastapi==0.65.1
+uvicorn==0.13.4
+
+# database
+asyncpg==0.24.0
+sqlmodel==0.0.6
+psycopg2-binary==2.9.1
+
+# utils
+aioredis==2.0.1
+fastapi-limiter==0.1.4
