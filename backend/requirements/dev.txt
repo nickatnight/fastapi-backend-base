@@ -1,6 +1,6 @@
 -r base.txt
 
 pytest==6.2.3
-black==21.5b1
+black==22.6.0
 flake8==3.9.2
 pytest-cov==2.12.0
