@@ -2,22 +2,20 @@ version: '3'
 
 volumes:
   base-data:
-  mongodb-data:
+  db-data:
   proxy-data:
   redis-data:
 
 services:
-  mongodb:
-    restart: always
+  db:
+    image: postgres:14.1-alpine
     env_file:
       - .env
-    build:
-      context: ./mongodb
-      dockerfile: ./Dockerfile
-    expose:
-      - "27017"
-    volumes:
-      - mongodb-data:/data/db
+    restart: always
+    ports:
+      - '5431:5432'
+    volumes: 
+      - db-data:/var/lib/postgresql/data
 
   backend:
     restart: always
@@ -32,10 +30,10 @@ services:
       - "8000:8000"
     command: |
         bash -c "
-        while !</dev/tcp/mongodb/27017; do sleep 1; done;
-        uvicorn src.main:app --reload --workers 1 --host 0.0.0.0 --port 8000 --log-config=logconfig.yml"
+        while !</dev/tcp/db/5432; do sleep 1; done;
+        uvicorn src.main:app --reload --workers 1 --host 0.0.0.0 --port 8000"
     depends_on:
-      - mongodb
+      - db
     environment:
       - PYTHONUNBUFFERED=0
     volumes:

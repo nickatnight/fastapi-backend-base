@@ -7,7 +7,7 @@ if [ ${#} -eq 0 ]; then
   echo "Configuring nginx..."
 
   j2 --undefined /code/templates/nginx.conf.j2 > /etc/nginx/nginx.conf
-  j2 --undefined /code/templates/site.conf.j2 > /etc/nginx/conf.d/site.conf
+  j2 --undefined /code/templates/site.conf.j2 > /etc/nginx/http.d/site.conf
 
   if [[ "${ENABLE_SSL}" == "true" ]]; then
     echo "Installing Certbot"

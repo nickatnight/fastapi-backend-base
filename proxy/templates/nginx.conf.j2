@@ -33,5 +33,5 @@ http {
     default $http_x_forwarded_port;
     ''      $server_port;
   }
-  include /etc/nginx/conf.d/*.conf;
+  include /etc/nginx/http.d/*.conf;
 }

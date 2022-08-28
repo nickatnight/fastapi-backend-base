@@ -1,11 +1,12 @@
-from fastapi import APIRouter, Depends
-from fastapi_limiter.depends import RateLimiter
+from fastapi import APIRouter
+
+# from fastapi_limiter.depends import RateLimiter
 
 
 router = APIRouter()
 
 
-@router.get("/ping", tags=["health"], dependencies=[Depends(RateLimiter(times=2, seconds=5))])
+@router.get("/ping", tags=["health"])
 async def pong():
     # some async operation could happen here
     # example: `data = await get_all_datas()`
