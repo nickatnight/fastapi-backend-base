@@ -2,8 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.api import routes
-from src.config import settings
-from src.db import close_mongo_connection, connect_to_mongo
+from src.db.session import init_db
+from src.core.config import settings
 
 
 tags_metadata = [
@@ -23,8 +23,7 @@ app = FastAPI(
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
 
-app.add_event_handler("startup", connect_to_mongo)
-app.add_event_handler("shutdown", close_mongo_connection)
+app.add_event_handler("startup", init_db)
 
 app.include_router(routes.home_router)
 app.include_router(routes.api_router, prefix=settings.API_V1_STR)
