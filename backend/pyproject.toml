@@ -1,13 +1,16 @@
+[flake8]
+max-line-length = 100
+exclude = '__init__.py,__pycache__,git'
+ignore = 'F403,F405,W605,W503,E203,E231'
+
+[tool.isort]
+multi_line_output = 3
+lines_after_imports = 2
+line_length = 88
+include_trailing_comma = true
+sections = 'FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER'
+
 [tool.black]
 line-length = 100
 include = '\.pyi?$'
-exclude = '''
-/(
-    \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-)/
-'''
+exclude = '(\.git|\.hg|\.mypy_cache|\.tox|\.venv|_build)'

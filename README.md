@@ -20,20 +20,30 @@ Small base project to build and deploy a fastapi backend..batteries included.
     * **Robust**: Get production-ready code. With automatic interactive documentation.
     * **Standards-based**: Based on (and fully compatible with) the open standards for APIs: <a href="https://github.com/OAI/OpenAPI-Specification" class="external-link" target="_blank">OpenAPI</a> and <a href="http://json-schema.org/" class="external-link" target="_blank">JSON Schema</a>.
     * <a href="https://fastapi.tiangolo.com/features/" class="external-link" target="_blank">**Many other features**</a> including automatic validation, serialization, interactive documentation, authentication with OAuth2 JWT tokens, etc.
-* **SQLAlchemy** models
+* **SQLModel** Library for interacting with SQL databases from Python code, with Python objects. It is designed to be intuitive, easy to use, highly compatible, and robust
 * **CORS** (Cross Origin Resource Sharing).
 * **NGINX** High Performance Load Balancer, Web Server, & Reverse Proxy
 * **Let's Encrypt** A free, automated, and open certificate authority (CA), provided by the Internet Security Research Group (ISRG)...with automatic cert renewal.
-* **MongoDB** General purpose, document-based, distributed database built for modern application developers.
-* **Motor** Coroutine-based API for non-blocking access to MongoDB
-* Request rate limiting for api routes.
+* **PostgresSQL** Powerfull open source object-relational database
+* **AsyncPG** Database interface library designed specifically for PostgreSQL and Python/asyncio.
+* **Redis** In-memory data structure store, used as a distributed, in-memory key–value database, cache and message broker.
 
+<p align="center">
+    <a href="#">
+        <img alt="Architecture Workflow" src="docs/fastapi-backend-base.png">
+    </a>
+</p>
 
 ## Usage
 1. `git clone https://github.com/nickatnight/fastapi-backend-base.git`
 2. `cd fastapi-backend-base`
 3. `mv .env_example .env`
 4. `docker compose up --build`
-5. visit `http://localhost:8000` for uvicorn server, or `http://localhost` for nginx
+5. visit `http://localhost:8000` for uvicorn server, or `http://localhost` for nginx proxy
 
 ## Deploy
+A common scenario is to use an orchestration tool, such as docker swarm, to deploy your containers to the cloud (DigitalOcean)
+
+## Configuration
+
+## Development
