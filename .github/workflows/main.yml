@@ -9,6 +9,7 @@ on:
       - master
       - develop
 
+jobs:
   linter:
     runs-on: ubuntu-20.04
     name: Check python linting
@@ -52,7 +53,7 @@ on:
           isort src
 
   create-release:
-    needs: [pre-commit]
+    needs: [linter, black, isort]
     runs-on: ubuntu-20.04
     steps:
       - name: checkout
