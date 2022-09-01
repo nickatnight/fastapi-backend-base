@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Start linter
         run: |
-          docker run --rm -w="/code/backend" -v $(pwd):/code alpine/flake8:3.9.2 .
+          docker run --rm -w="/code/backend" -v $(pwd):/code alpine/flake8:3.9.2 --config=pyproject.toml .
 
   black:
     runs-on: ubuntu-20.04
@@ -34,7 +34,7 @@ jobs:
         working-directory: ./backend
         run: |
           pip install black==22.6.0
-          black --check .
+          black --check --config=pyproject.toml .
 
   isort:
     runs-on: ubuntu-20.04
@@ -50,7 +50,7 @@ jobs:
         working-directory: ./backend
         run: |
           pip install isort==5.10.1
-          isort src
+          isort --settings-path=pyproject.toml src
 
   create-release:
     needs: [linter, black, isort]
