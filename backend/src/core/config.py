@@ -18,7 +18,10 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str = Field(..., env="POSTGRES_PASSWORD")
     POSTGRES_DB: str = Field(..., env="POSTGRES_DB")
     POSTGRES_PORT: str = Field(..., env="POSTGRES_PORT")
+
     REDIS_HOST: str = Field(..., env="REDIS_HOST")
+    REDIS_PORT: str = Field(..., env="REDIS_PORT")
+    REDIS_URL: str = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
 
     VERSION: str = Field(..., env="VERSION")
 

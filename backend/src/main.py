@@ -2,8 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.api import routes
-from src.db.session import on_startup
 from src.core.config import settings
+from src.db.session import on_startup
 
 
 tags_metadata = [
