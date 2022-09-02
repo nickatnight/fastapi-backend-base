@@ -2,12 +2,13 @@
     <a href="https://github.com/nickatnight/fastapi-backend-base/actions">
         <img alt="GitHub Actions status" src="https://github.com/nickatnight/fastapi-backend-base/actions/workflows/main.yml/badge.svg">
     </a>
+    <a href="https://github.com/nickatnight/fastapi-backend-base/releases"><img alt="Release Status" src="https://img.shields.io/github/v/release/nickatnight/fastapi-backend-base"></a>
 </p>
 
 
 # fastapi-backend-base
 
-Small base project to build and deploy a fastapi backend..batteries included.
+Small base project I use to build and deploy fastapi backends..batteries included. Basically a stripped down version of [this](https://github.com/tiangolo/full-stack-fastapi-postgresql) and [this](https://github.com/jonra1993/fastapi-alembic-sqlmodel-async) repo...with some extra bells and whistles.
 
 ## Features
 * **Docker Compose** integration and optimization for local development.
