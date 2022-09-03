@@ -22,6 +22,9 @@ class Settings(BaseSettings):
     REDIS_PORT: str = Field(..., env="REDIS_PORT")
     # REDIS_URL: str = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
 
+    CLIENT_ID: str = Field(..., env="CLIENT_ID")
+    CLIENT_SECRET: str = Field(..., env="CLIENT_SECRET")
+
     VERSION: str = Field(..., env="VERSION")
 
 
