@@ -15,6 +15,7 @@ RUN apk add --no-cache \
     gcc \
     libffi-dev \
     g++ \
+    git \
     musl-dev &&\
     pip3 install --upgrade pip &&\
     rm -rf /tmp/*

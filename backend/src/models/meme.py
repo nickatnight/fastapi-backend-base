@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 
 from pydantic import BaseConfig, validator
-from sqlmodel import Field, SQLModel
+from sqlmodel import Column, DateTime, Field, SQLModel
 
 from src.models.base import BaseModel
 
@@ -12,7 +12,12 @@ class MemeBase(SQLModel):
     submission_title: str = Field(...)
     permalink: str = Field(...)
     author: str = Field(...)
-    timestamp: datetime = Field(...)
+    timestamp: datetime = Field(
+        sa_column=Column(
+            DateTime(timezone=True),
+            nullable=False,
+        )
+    )
 
     class Config(BaseConfig):
         json_encoder = {
@@ -35,4 +40,4 @@ class MemeBase(SQLModel):
 class Meme(BaseModel, MemeBase, table=True):
     @validator("created_at", pre=True, always=True)
     def set_created_at_now(cls, v):
-        return v or datetime.now()
+        return v or datetime.now(timezone.utc)

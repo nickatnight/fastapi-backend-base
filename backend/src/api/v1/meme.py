@@ -12,7 +12,7 @@ router = APIRouter()
 
 
 @router.get(
-    "/meme/list",
+    "/memes",
     response_description="List all meme instances",
     response_model=IGetResponseBase[IMemeRead],
     tags=["memes"],

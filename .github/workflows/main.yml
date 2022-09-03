@@ -34,7 +34,7 @@ jobs:
         working-directory: ./backend
         run: |
           pip install black==22.6.0
-          black --check --config=pyproject.toml .
+          black --check .
 
   isort:
     runs-on: ubuntu-20.04
@@ -50,7 +50,7 @@ jobs:
         working-directory: ./backend
         run: |
           pip install isort==5.10.1
-          isort --settings-path=pyproject.toml src
+          isort src
 
   create-release:
     needs: [linter, black, isort]

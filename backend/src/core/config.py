@@ -4,7 +4,6 @@ from pydantic import AnyHttpUrl, BaseSettings, Field
 
 
 class Settings(BaseSettings):
-    API_V1_STR: str = "/v1"
     SECRET_KEY: str = Field(..., env="SECRET_KEY")
     # 60 minutes * 24 hours * 8 days = 8 days
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
@@ -21,7 +20,7 @@ class Settings(BaseSettings):
 
     REDIS_HOST: str = Field(..., env="REDIS_HOST")
     REDIS_PORT: str = Field(..., env="REDIS_PORT")
-    REDIS_URL: str = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
+    # REDIS_URL: str = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
 
     VERSION: str = Field(..., env="VERSION")
 

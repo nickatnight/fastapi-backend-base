@@ -2,7 +2,7 @@ import uuid as uuid_pkg
 from datetime import datetime
 from typing import Optional
 
-from sqlmodel import Field, SQLModel
+from sqlmodel import Column, DateTime, Field, SQLModel
 
 
 class BaseModel(SQLModel):
@@ -12,5 +12,15 @@ class BaseModel(SQLModel):
         index=True,
         nullable=False,
     )
-    updated_at: Optional[datetime]
-    created_at: Optional[datetime]
+    updated_at: Optional[datetime] = Field(
+        sa_column=Column(
+            DateTime(timezone=True),
+            nullable=True,
+        )
+    )
+    created_at: Optional[datetime] = Field(
+        sa_column=Column(
+            DateTime(timezone=True),
+            nullable=True,
+        )
+    )
