@@ -2,18 +2,16 @@ from typing import List, TypeVar
 
 from r_dogecoin_bot.clients.database import AbstractDbClient
 from r_dogecoin_bot.main import asyncpraw
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import select
 
-from src.db.session import async_session, get_session
+from src.db.session import async_session
 from src.models import Meme
 
 
 Submission = TypeVar("Submission")
 
 
-class PostgresSubmissionDbClient(AbstractDbClient[asyncpraw.models.Submission, AsyncSession, Meme]):
-    session: AsyncSession = get_session()
+class PostgresSubmissionDbClient(AbstractDbClient[asyncpraw.models.Submission, Meme]):
     schema: Meme = Meme
 
     @classmethod
@@ -36,6 +34,6 @@ class PostgresSubmissionDbClient(AbstractDbClient[asyncpraw.models.Submission, A
     @classmethod
     async def get_existing_ids(cls) -> List[str]:
         async with async_session() as session:
-            result = await session.execute(select(Meme.submission_id))
+            result = await session.execute(select(cls.schema.submission_id))
 
         return result.scalars().all()
