@@ -1,7 +1,26 @@
-[flake8]
-max-line-length = 100
-exclude = '__init__.py,__pycache__,git'
-ignore = 'F403,F405,W605,W503,E203,E231'
+[tool.poetry]
+name = "fastapi-backend-base"
+version = "2.4.0"
+description = "Base project for building fastapi backends"
+authors = ["nickatnight <nickkelly.858@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+asyncpraw = "^7.5.0"
+alembic = "^1.8.1"
+asyncpg = "^0.26.0"
+fastapi = "^0.81.0"
+psycopg2-binary = "^2.9.3"
+sqlmodel = "^0.0.8"
+uvicorn = "^0.18.3"
+r-dogecoin-bot = { git = "https://github.com/nickatnight/r-dogecoin-bot", tag = "0.1.4" }
+
+[tool.poetry.dev-dependencies]
+black = "22.6.0"
+flake8 = "5.0.4"
+isort = "5.10.1"
+pytest = "6.2.3"
+pytest-cov = "2.12.0"
 
 [tool.isort]
 multi_line_output = 3
@@ -14,3 +33,7 @@ sections = 'FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER'
 line-length = 100
 include = '\.pyi?$'
 exclude = '(\.git|\.hg|\.mypy_cache|\.tox|\.venv|_build)'
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

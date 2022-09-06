@@ -1,30 +1,26 @@
-FROM alpine:3.14
-
-LABEL maintainer Nick <nick@night.com>
+FROM python:3.9 as base
 
 ARG env
-ENV REQUIREMENTS_FILE ${env:-dev}.txt
 ENV PYTHONPATH "${PYTHONPATH}:/code"
 
- # Install base packages
-RUN apk add --no-cache \
-    bash \
-    python3-dev \
-    py3-pip \
-    postgresql-dev \
-    gcc \
-    libffi-dev \
-    g++ \
-    git \
-    musl-dev &&\
-    pip3 install --upgrade pip &&\
-    rm -rf /tmp/*
+WORKDIR /tmp
 
+RUN pip install poetry
 
-ADD /requirements/base.txt /requirements/$REQUIREMENTS_FILE /tmp/
-RUN pip3 install --no-cache-dir -r /tmp/$REQUIREMENTS_FILE
+COPY ./pyproject.toml ./poetry.lock* /tmp/
+
+RUN poetry export $(test "${env:-dev}" != "prod" && echo "--with dev") \
+    -f requirements.txt \
+    --output requirements.txt \
+    --without-hashes
+
+FROM python:3.9
+
+COPY --from=base /tmp/requirements.txt /code/requirements.txt
+
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 ADD . /code/
-WORKDIR /code/
+WORKDIR /code
 
 EXPOSE 8000
