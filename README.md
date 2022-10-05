@@ -40,11 +40,42 @@ Small base project I use to build and deploy fastapi backends..batteries include
 2. `cd fastapi-backend-base`
 3. `mv .env_example .env`
 4. `docker compose up --build`
-5. visit `http://localhost:8000` for uvicorn server, or `http://localhost` for nginx proxy
+5. visit `http://localhost:8666/v1/openapi.json` for uvicorn server, or `http://localhost` for nginx proxy
+
+## Nginx
+```yml
+volumes:
+  proxydata-vol:
+...
+proxy:
+    image: your-registry/proxy # OR
+    build:
+      context: ./proxy
+      dockerfile: ./Dockerfile
+    environment:
+      - UPSTREAMS=/:backend:8000
+      - NGINX_SERVER_NAME=yourservername.com
+      - ENABLE_SSL=true
+      - HTTPS_REDIRECT=true
+      - CERTBOT_EMAIL=youremail@gmail.com
+      - DOMAIN_LIST=yourservername.com
+    ports:
+      - '0.0.0.0:80:80'
+      - '0.0.0.0:443:443'
+    volumes:
+      - proxydata-vol:/etc/letsencrypt
+```
+
+Some of the envrionment variables available:
+- `UPSTREAMS=/:backend:8000` a comma separated list of \<path\>:\<upstream\>:\<port\>.  Each of those of those elements creates a location block with proxy_pass in it.
+- `HTTPS_REDIRECT=true` enabled a standard, ELB compliant https redirect.
+- `ENABLE_SSL=true` to enable redirects to https from http
+- `NGINX_SERVER_NAME` name of the server and used as path name to store ssl fullchain and privkey
+- `CERTBOT_EMAIL=youremail@gmail.com` the email to register with Certbot.
+- `DOMAIN_LIST` domain(s) you are requesting a certificate for.
+
+When SSL is enabled, server will install Cerbot in standalone mode and add a new daily periodic script to `/etc/periodic/daily/` to run a cronjob in the background. This allows you to automate cert renewing (every 3 months). See [docker-entrypoint](proxy/docker-entrypoint.sh) for details.
+
 
 ## Deploy
-A common scenario is to use an orchestration tool, such as docker swarm, to deploy your containers to the cloud (DigitalOcean)
-
-## Configuration
-
-## Development
+A common scenario is to use an orchestration tool, such as docker swarm, to deploy your containers to the cloud (DigitalOcean).
