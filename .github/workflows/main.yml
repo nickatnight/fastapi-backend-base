@@ -37,7 +37,7 @@ jobs:
       - name: run black
         working-directory: ./backend
         run: |
-          pip install black==21.5b1
+          pip install black==22.6.0
           black --check .
 
   isort:
