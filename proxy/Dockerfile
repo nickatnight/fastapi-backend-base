@@ -12,8 +12,7 @@ RUN apk add --no-cache\
     musl-dev &&\
     pip3 install --upgrade pip &&\
     pip3 install --no-cache-dir \
-    j2cli==0.3.10 \
-    certbot-nginx==1.20.0 &&\
+    j2cli==0.3.10 &&\
     rm -rf /etc/nginx/nginx.conf /etc/nginx/http.d/*
 
 COPY ./ /code/

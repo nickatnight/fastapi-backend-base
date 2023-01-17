@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-backend-base"
-version = "3.0.0"
+version = "3.0.1"
 description = "Base project for building fastapi backends"
 authors = ["nickatnight <nickkelly.858@gmail.com>"]
 
