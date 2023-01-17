@@ -3,17 +3,18 @@ import logging
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-from src.db.utils import get_db_url
+from src.core.config import settings
 
 
 logger = logging.getLogger(__name__)
-DB_POOL_SIZE = 83
-WEB_CONCURRENCY = 9
-POOL_SIZE = max(DB_POOL_SIZE // WEB_CONCURRENCY, 5)
-POSTGRES_URL = get_db_url()
+
 
 engine = create_async_engine(
-    POSTGRES_URL, echo=True, future=True, pool_size=POOL_SIZE, max_overflow=64
+    settings.POSTGRES_URL,
+    echo=True,
+    future=True,
+    pool_size=settings.POOL_SIZE,
+    max_overflow=settings.MAX_OVERFLOW,
 )
 async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
