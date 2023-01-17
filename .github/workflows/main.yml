@@ -37,7 +37,7 @@ jobs:
       - name: run black
         working-directory: ./backend
         run: |
-          pip install black==21.5b1
+          pip install black==22.6.0
           black --check .
 
   isort:
@@ -57,7 +57,7 @@ jobs:
           isort src
 
   build_backend:
-    if: ${{ secrets.ENABLE_BUILD }} == 'true'
+    if: github.repository != 'nickatnight/fastapi-backend-base'
     runs-on: ubuntu-latest
     needs: [flake8,black,isort]
     name: Build backend
@@ -77,7 +77,7 @@ jobs:
         run: docker push ${{ secrets.REGISTRY }}/backend:${{ github.sha }}
 
   build_proxy:
-    if: ${{ secrets.ENABLE_BUILD }} == 'true'
+    if: github.repository != 'nickatnight/fastapi-backend-base'
     runs-on: ubuntu-latest
     needs: [flake8,black]
     name: Build Nginx proxy
