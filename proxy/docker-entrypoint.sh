@@ -12,6 +12,8 @@ if [ ${#} -eq 0 ]; then
   if [[ "${ENABLE_SSL}" == "true" ]]; then
     echo "Installing Certbot"
     apk add --no-cache certbot \
+    && pip3 install --upgrade pip \
+    && pip3 install certbot-nginx \
     && certbot certonly --standalone --agree-tos -m "${CERTBOT_EMAIL}" -n -d ${DOMAIN_LIST} \
     && echo -e "#!/bin/sh\n\ncertbot renew --nginx" >/etc/periodic/daily/certbot-renew \
     && chmod +x /etc/periodic/daily/certbot-renew
