@@ -8,6 +8,8 @@
 
 # fastapi-backend-base
 
+:x: NOTICE: This project is no longer maintained. Please see the more robust cookiecutter version [here](https://github.com/nickatnight/cookiecutter-fastapi-backend) :x:
+
 Small base project I use to build and deploy fastapi backends..batteries included. Basically a stripped down version of [this](https://github.com/tiangolo/full-stack-fastapi-postgresql) and [this](https://github.com/jonra1993/fastapi-alembic-sqlmodel-async) repo...with some extra bells and whistles.
 
 ## Features
